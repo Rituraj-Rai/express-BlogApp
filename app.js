@@ -134,6 +134,8 @@ app.get('/blogs/:id/edit', async (req,res)=>{
 	}
 });
 
+// Get post
+
 app.put('/blogs/:id', async (req,res)=>{
 	
 	req.body.blog.body = req.sanitize(req.body.blog.body);
@@ -162,6 +164,19 @@ app.delete('/blogs/:id', async (req,res)=>{
 	catch (err){
 		console.log(err)
 		res.send("Post not delete. err");
+	}
+});
+
+// Get weather -->
+
+app.get('/weather', async (req,res)=>{
+	
+	try{
+		res.render('weather');
+	}
+	catch(err){
+		console.log(err);
+		res.redirect(`/blogs`);
 	}
 });
 
