@@ -3,6 +3,8 @@ const express = require('express'),
 	  methodOvrd = require('method-override'),
 	  app = express(),
 	  bodyParser = require('body-parser'),
+	  axios = require('axios'),
+	//   dotenv = require('dotenv'),
 	  mongoose = require('mongoose');
 
 // #############################################################################
@@ -17,6 +19,7 @@ app.use(function (req, res, next) {
 
 // ####### config ->
 
+// dotenv.config();
 app.use(methodOvrd('_method'));
 app.set('view engine','ejs');
 app.use(express.urlencoded({extended: true})); // changed this to true
@@ -177,6 +180,28 @@ app.get('/weather', async (req,res)=>{
 	catch(err){
 		console.log(err);
 		res.redirect(`/blogs`);
+	}
+});
+
+// Listening Weather API requests-->
+
+const weather = async (api) => {
+    try {        
+        return axios.get(api); // returns promise
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+
+app.get('/weather/:lat/:lon', async(req,res) => {
+	try {
+		const {lat, lon} = req.params;
+		let api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.API_KEY}`;
+		const { data } = await weather(api_url); //extracting only data component
+		res.send(data);
+		console.log("Weather fetched");
+	} catch (err) {
+		console.log(err.message);
 	}
 });
 
