@@ -17,7 +17,7 @@ section{
     align-items: center;
 }
 
-span{
+.icon div span{
     font-size: 2rem;  
 }
 
@@ -25,7 +25,7 @@ p{
     margin: 0;
 }
 
-button{
-    font-size: medium;
+section em{
+    color: gray;
 }
 
