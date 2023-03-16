@@ -64,11 +64,9 @@ const blogSchema = new mongoose.Schema({
 
 const Blog = mongoose.model('Blog',blogSchema);
 
-app.get('/',(req,res)=>{
-		
+app.get('/', (req,res) => {	
 	res.redirect("/blogs");
-	
-	});
+});
 
 // INDEX Route -->
 
