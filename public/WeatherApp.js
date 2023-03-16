@@ -22,7 +22,7 @@ const getInfo = async(loc) => {
         const { coords: {latitude, longitude} } = loc; //destructuring
         const res = await axios.get(`/weather/${latitude}/${longitude}`) // calling the api from server
         const { data } = res; //geting only data from response
-        fill(data)
+        fill(data);
         console.log(data); 
     } catch (err) {
         console.log(err.message);
