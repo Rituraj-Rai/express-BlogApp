@@ -21,6 +21,7 @@ app.use(function (req, res, next) {
 
 // dotenv.config();
 app.use(methodOvrd('_method'));
+app.set('trust proxy', true);
 app.set('view engine','ejs');
 app.use(express.urlencoded({extended: true})); // changed this to true
 app.use(expressSanitizer());
@@ -74,7 +75,7 @@ app.get('/blogs',async (req,res)=>{
 	
 	try{
 		const blogs = await Blog.find({});
-		console.log("Page Visited!!");
+		console.log("Page Visited!! ip: "+ req.ip);
 		res.render('index',{blogs});
 	}
 	catch (err){
@@ -191,13 +192,15 @@ const weather = async (api) => {
     }
 }
 
+
 app.get('/weather/:lat/:lon', async(req,res) => {
 	try {
 		const {lat, lon} = req.params;
 		let api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.API_KEY}`;
 		const { data } = await weather(api_url); //extracting only data component
+		data.ip = req.ip; //adding ip value to the data object
 		res.send(data);
-		console.log("Weather fetched");
+		console.log("Weather fetched by ip: "+req.ip);
 	} catch (err) {
 		console.log(err.message);
 	}
