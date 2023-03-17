@@ -3,7 +3,7 @@ const express = require('express'),
 	  methodOvrd = require('method-override'),
 	  app = express(),
 	  axios = require('axios'),
-	//   dotenv = require('dotenv'),
+	//   dotenv = require('dotenv'), //for debug purpose
 	  mongoose = require('mongoose');
 
 // #############################################################################
@@ -18,7 +18,7 @@ app.use(function (req, res, next) {
 
 // ####### config ->
 
-// dotenv.config();
+// dotenv.config(); //debug
 app.use(methodOvrd('_method'));
 app.set('trust proxy', true);
 app.set('view engine','ejs');
@@ -78,7 +78,7 @@ app.get('/blogs',async (req,res)=>{
 		res.render('index',{blogs});
 	}
 	catch (err){
-		console.log(err.message)
+		console.log(err.message);
 	}
 	
 });
@@ -115,8 +115,8 @@ app.get('/blogs/:id',async (req,res)=>{
 		res.render('show',{ blog });
 	}
 	catch(err){
-		console.log(err)
-		res.redirect("/")
+		console.log(err);
+		res.redirect("/");
 	}
 		
 });
@@ -143,7 +143,7 @@ app.put('/blogs/:id', async (req,res)=>{
 	
 	try{
 		const newdta = await Blog.findByIdAndUpdate(req.params.id, req.body.blog, { new:true });
-		console.log("Post Updated!!")
+		console.log("Post Updated!!");
 		console.log(newdta);
 		res.redirect('/blogs/'+req.params.id);
 	}
@@ -163,7 +163,7 @@ app.delete('/blogs/:id', async (req,res)=>{
 		res.redirect("/");
 	}
 	catch (err){
-		console.log(err)
+		console.log(err);
 		res.send("Post not delete. err");
 	}
 });
