@@ -2,7 +2,6 @@ const express = require('express'),
 	  expressSanitizer = require('express-sanitizer'),
 	  methodOvrd = require('method-override'),
 	  app = express(),
-	  bodyParser = require('body-parser'),
 	  axios = require('axios'),
 	//   dotenv = require('dotenv'),
 	  mongoose = require('mongoose');
@@ -222,4 +221,4 @@ app.use('*', (req,res) => {
     .end()
 })
 
-module.exports = app
+module.exports = app;
